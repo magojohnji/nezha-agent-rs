@@ -11,6 +11,7 @@ use tonic::{
     transport::{Channel, Endpoint},
     Request,
 };
+use uuid::Uuid;
 
 pub async fn init_client(
     server_url: &str,
@@ -66,7 +67,7 @@ pub async fn init_tls_client(
     Ok(client)
 }
 
-pub async fn build_request_host(token: &str) -> Result<Request<Host>, Box<dyn std::error::Error>> {
+pub async fn build_request_host(token: &str, uuid: &str) -> Result<Request<Host>, Box<dyn std::error::Error>> {
     let sys = System::new();
     let (total_mem, _, _, total_swap, _, _) = get_mem_info(sys).await;
     let (dist, kernel_version) = get_platform_info().await;
@@ -87,6 +88,7 @@ pub async fn build_request_host(token: &str) -> Result<Request<Host>, Box<dyn st
         country_code: "Dropped".to_string(), // 已经弃用
         version: env!("CARGO_PKG_VERSION").to_string(),
         gpu: vec![], // 没写
+        uuid: uuid.to_string(), // 新增
     });
     request
         .metadata_mut()
