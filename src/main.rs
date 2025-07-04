@@ -10,6 +10,7 @@ use log::*;
 use server_comm::*;
 use simple_logger::init_with_level;
 use sysinfo::System;
+use uuid::Uuid;
 
 #[tokio::main]
 async fn main() {
@@ -46,9 +47,10 @@ async fn main() {
     };
 
     let mut sys = System::new();
+    let uuid = Uuid::new_v4().to_string(); // 启动时生成uuid
 
     loop {
-        match build_request_host(args.password.as_str()).await {
+        match build_request_host(args.password.as_str(), &uuid).await {
             Ok(request) => {
                 debug!("Host 请求: {:?}", request);
                 match client.report_system_info(request).await {
