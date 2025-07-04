@@ -26,6 +26,7 @@ message Host {
   string country_code = 11; // deprecated
   string version = 12;
   repeated string gpu = 13;
+  string uuid = 14; // 新增uuid字段
 }
 
 message State {
