@@ -28,6 +28,8 @@ pub struct Host {
     pub version: ::prost::alloc::string::String,
     #[prost(string, repeated, tag = "13")]
     pub gpu: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    #[prost(string, tag = "14")]
+    pub uuid: ::prost::alloc::string::String, // 新增uuid字段
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
